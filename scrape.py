@@ -25,7 +25,7 @@ def getData(url):
     section = findSection(html, '<tbody class="style5">', '</table>')
     imageHtml = findSection(section, '<img', '>')
     
-    result['dateFormatted'] = findSection(section, '', '</font></td>').strip()
+    result['dateFormatted'] = findSection(section, '<nobr>', ': </nobr>').strip()
     result['imageUrl'] = 'http://sinfest.net/' + findSection(imageHtml, 'src="', '"')
     result['date'] = findSection(imageHtml, 'btphp/comics/', '.gif')
     result['title'] = findSection(imageHtml, 'alt="', '"')
