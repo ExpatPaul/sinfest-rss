@@ -22,20 +22,14 @@ def getData(url):
 
     result = {}
 
-    section = findSection(html, '<p align="center"><font face="Fixedsys" color="#534077">', '<table')
-
+    section = findSection(html, '<tbody class="style5">', '</table>')
+    imageHtml = findSection(section, '<img', '>')
+    
     result['dateFormatted'] = findSection(section, '', '</font></td>').strip()
-
-    imageHtml = findSection(section, '<img', '/>')
-    result['imageUrl'] = findSection(imageHtml, 'http', '"', True)
-    result['date'] = findSection(imageHtml, 'comikaze/comics/', '.gif').replace('comikaze/comics/', '')
+    result['imageUrl'] = 'http://sinfest.net/' + findSection(imageHtml, 'src="', '"')
+    result['date'] = findSection(imageHtml, 'btphp/comics/', '.gif')
     result['title'] = findSection(imageHtml, 'alt="', '"')
-
-    # find section containing "previous" link by looking after the link to the first comic
-    previousHtml = findSection(section, '<img src="images/first_a.gif" border="0" alt="First" />', '<table')
-    previousId = int(findSection(previousHtml, 'http://sinfest.net/archive_page.php?comicID=', '"'))
-    result['id'] = int(previousId) + 1
-    result['url'] = 'http://sinfest.net/archive_page.php?comicID=%s' % (previousId + 1)
+    result['url'] = 'http://sinfest.net/view.php?date=%s' % (result['date'])
 
     return result
 
@@ -47,17 +41,17 @@ except:
         'dateFormatted': today.strftime('%d %b %Y'),
         'date': today.strftime('%Y-%m-%d') }
 
-# Create the feed
+# Create the feed.
 feed = Feed()
 
-# Set the feed/channel level properties
+# Set the feed/channel level properties.
 feed.feed['title'] = 'Sinfest RSS'
 feed.feed['link'] = 'http://www.sinfest.net'
 feed.feed['author'] = 'Tatsuya Ishida'
 feed.feed['description'] = 'RSS feed for Sinfest'
 
-# Create an item
-# For this basic feed, I'll only include the latest comic
+# Create an item.
+# For this basic feed, I'll only include the latest comic.
 item = {}
 item['link'] = todaysSinfest['url']
 item['guid'] = todaysSinfest['date']
@@ -68,9 +62,9 @@ if todaysSinfest['imageUrl'] != '':
 else:
     item['summary'] = 'image not found'
 
-# Add item to feed
+# Add item to feed.
 feed.items.append(item)
 
-# Save the feed to a file
+# Save the feed to a file.
 feed.format_rss2_file('rss2.xml')
 
