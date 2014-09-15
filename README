@@ -7,7 +7,7 @@ as the RSS feed will not include comics older than the most recent one.
 Use cron or similar to invoke the scraper daily.
 Example crontab entry to run at 1 a.m. server time:
     # Run nightly
-    0 1 * * * python /home/qviri/bin.piorkowski.ca/sinfest-rss/scrape.py
+    0 1 * * * cd /home/qviri/bin.piorkowski.ca/sinfest-rss/ && python scrape.py
 
 With small modifications (having scrape.py print feed.format_rss2_string()
 rather than doing feed.format_rss2_file()) it would also be possible
