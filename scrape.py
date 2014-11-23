@@ -31,6 +31,9 @@ def getData(url):
     result['title'] = findSection(imageHtml, 'alt="', '"')
     result['url'] = 'http://sinfest.net/view.php?date=%s' % (result['date'])
 
+    adSection = findSection(html, 'Begin Project Wonderful', 'End Project Wonderful')
+    result['ad'] = findSection(adSection, '<noscript>', '</noscript>')
+
     return result
 
 try:
@@ -58,7 +61,7 @@ item['guid'] = todaysSinfest['date']
 item["pubDate"] = time.localtime()
 item['title'] = 'Sinfest for %s: %s' % (todaysSinfest['dateFormatted'], todaysSinfest['title'])
 if todaysSinfest['imageUrl'] != '':
-    item['summary'] = '<img src="%s" />' % (todaysSinfest['imageUrl'])
+    item['summary'] = '<img src="%s" /><br/><br/>%s' % (todaysSinfest['imageUrl'], todaysSinfest['ad'])
 else:
     item['summary'] = 'image not found'
 
