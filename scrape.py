@@ -52,6 +52,10 @@ feed.feed['title'] = 'Sinfest RSS'
 feed.feed['link'] = 'http://www.sinfest.net'
 feed.feed['author'] = 'Tatsuya Ishida'
 feed.feed['description'] = 'RSS feed for Sinfest'
+# Suggest checking every 12 hours. Normally content will update every 24 hours.
+# This is an attempt to tell clients there's no point checking the feed
+# every 5 minutes - it's not a big deal load-wise, but it is pointless.
+feed.feed['ttl'] = '720'
 
 # Create an item.
 # For this basic feed, I'll only include the latest comic.

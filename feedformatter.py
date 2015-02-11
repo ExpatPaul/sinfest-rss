@@ -548,6 +548,7 @@ _rss2_channel_mappings = (
     (("pubDate", "pubdate", "date", "published", "updated"), "pubDate",
         lambda x: _format_datetime("rss2",x)),
     (("category",), "category"),
+    (("ttl",), "ttl"),
     (("language",), "language"),
     (("copyright",), "copyright"),
     (("webMaster",), "webmaster"),
