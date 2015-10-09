@@ -4,7 +4,12 @@
 from feedformatter import Feed
 import datetime
 import time
-import urllib2
+try:
+    import urllib2
+    PY2 = True
+except ImportError:
+    import requests
+    PY2 = False
 
 def findSection(text, start, end, includeStart = False, includeEnd = False):
     startIndex = text.find(start)
@@ -18,7 +23,10 @@ def findSection(text, start, end, includeStart = False, includeEnd = False):
     return text[startIndex:endIndex]
 
 def getData(url):
-    html = urllib2.urlopen(url).read()
+    if PY2:
+        html = urllib2.urlopen(url).read()
+    else:
+        html = requests.get(url).text
 
     result = {}
 
@@ -73,5 +81,7 @@ else:
 feed.items.append(item)
 
 # Save the feed to a file.
-feed.format_rss2_file('rss2.xml')
+with open('rss2.xml', 'w') as f:
+    f.write(feed.format_rss2_string())
+    f.write('\n')  # Ensure file ends in EOL
 

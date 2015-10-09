@@ -9,8 +9,11 @@ Example crontab entry to run at 1 a.m. server time:
     # Run nightly
     0 1 * * * cd /home/qviri/bin.piorkowski.ca/sinfest-rss/ && python scrape.py
 
+Tested on Python 2.7.10 and Python 3.4.3. On Python 2 uses built-in urllib2.
+On Python 3 requires the third-party requests library.
+
 With small modifications (having scrape.py print feed.format_rss2_string()
-rather than doing feed.format_rss2_file()) it would also be possible
+rather than writing it to file rss2.xml) it would also be possible
 to re-scrape sinfest every time RSS feed is checked, but this would
 be at the expense of higher load on Sinfest's server and yours.
 
