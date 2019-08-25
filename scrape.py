@@ -39,14 +39,15 @@ def getData(url):
     result['title'] = findSection(imageHtml, 'alt="', '"')
     result['url'] = 'http://sinfest.net/view.php?date=%s' % (result['date'])
 
-    adSection = findSection(html, 'Begin Project Wonderful', 'End Project Wonderful')
-    result['ad'] = findSection(adSection, '<noscript>', '</noscript>')
+    # sinfest no longer uses Project Wonderful and new ads don't seem to have a noscript section
+    result['ad'] = ''
 
     return result
 
 try:
     todaysSinfest = getData('http://sinfest.net/')
-except:
+except Exception as e:
+    print(e)
     today = datetime.date.today()
     todaysSinfest = {'title': 'could not fetch', 'url': '', 'imageUrl': '',
         'dateFormatted': today.strftime('%d %b %Y'),
