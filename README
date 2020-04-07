@@ -4,22 +4,12 @@ the most recent comic.
 Intended for use with RSS readers that update daily or more frequently,
 as the RSS feed will not include comics older than the most recent one.
 
-Use cron or similar to invoke the scraper daily.
-Example crontab entry to run at 1 a.m. server time:
-    # Run nightly
-    0 1 * * * cd /home/qviri/bin.piorkowski.ca/sinfest-rss/ && python scrape.py
+Sinfest is scraped every time the RSS feed is checked. 
+Simply point your RSS reader at scrape.cgi and don't refresh too often.
 
-Tested on Python 2.7.10 and Python 3.4.3. On Python 2 uses built-in urllib2.
-On Python 3 requires the third-party requests library.
-
-With small modifications (having scrape.py print feed.format_rss2_string()
-rather than writing it to file rss2.xml) it would also be possible
-to re-scrape sinfest every time RSS feed is checked, but this would
-be at the expense of higher load on Sinfest's server and yours.
 
 
 feedformatter.py from http://code.google.com/p/feedformatter/
-
 license for feedformatter.py:
 # Copyright (c) 2009, Luke Maurits <luke@maurits.id.au>
 # All rights reserved.
